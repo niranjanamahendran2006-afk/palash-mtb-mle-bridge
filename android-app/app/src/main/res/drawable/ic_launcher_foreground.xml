@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Simple "P" mark placeholder — replace with a real designed icon before submission -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M40,30 h18 a14,14 0 0 1 0,28 h-8 v20 h-10 z M50,40 v8 h8 a4,4 0 0 0 0,-8 z" />
+</vector>

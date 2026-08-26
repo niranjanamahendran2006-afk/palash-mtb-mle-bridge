@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="palash_green_primary">#1E6E5C</color>
+    <color name="palash_green_dark">#124A3D</color>
+    <color name="palash_amber_accent">#D98E2E</color>
+    <color name="palash_bg">#F7F6F1</color>
+    <color name="palash_surface">#FFFFFF</color>
+    <color name="palash_text_primary">#1B2B24</color>
+    <color name="palash_text_secondary">#5C6B64</color>
+    <color name="palash_error">#B3261E</color>
+    <color name="palash_offline_ready">#2E7D32</color>
+</resources>

@@ -1,0 +1,22 @@
+# Android / Gradle
+*.iml
+.gradle/
+**/local.properties
+.idea/
+.DS_Store
+**/build/
+/captures
+.externalNativeBuild
+.cxx
+android-app/app/release/
+android-app/app/debug/
+
+# Large model files should not be committed directly to git —
+# use Git LFS or a download script instead (see README).
+android-app/app/src/main/assets/models/*.tflite
+android-app/app/src/main/assets/models/*.onnx
+
+# Python
+__pycache__/
+*.pyc
+.venv/
