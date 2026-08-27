@@ -11,6 +11,7 @@ package com.palash.mtbmle.data.model
  */
 data class TranslationExample(
     val hindi: String,
-    val santhali: String,
+    val santhaliOlChiki: String,
+    val santhaliDevanagari: String,   // NEW — transliteration teachers can read
     val isDemoContent: Boolean = true
 )

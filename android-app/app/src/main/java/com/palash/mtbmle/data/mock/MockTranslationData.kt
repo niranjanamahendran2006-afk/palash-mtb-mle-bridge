@@ -15,6 +15,26 @@ object MockTranslationData {
     val examples = listOf(
         TranslationExample(
             hindi = "बच्चों, अपनी किताब खोलो।",
+            santhaliOlChiki = "ᱜᱤᱫᱽᱨᱟᱹ ᱠᱚ, ᱟᱯᱱᱟᱨᱟᱜ ᱯᱩᱛᱷᱤ ᱡᱷᱤᱡᱽ ᱯᱮ।",
+            santhaliDevanagari = "गिद्रा को, अपनाराग् पुथि झिज् पे।"
+        ),
+        TranslationExample(
+            hindi = "आज हम गिनती सीखेंगे।",
+            santhaliOlChiki = "ᱛᱮᱦᱮᱧ ᱵᱚᱱ ᱞᱮᱠᱷᱟ ᱵᱚᱱ ᱪᱮᱫᱟ।",
+            santhaliDevanagari = "तेहेञ् बोन् लेखा बोन् चेदा।"
+        ),
+        TranslationExample(
+            hindi = "यह कौन सा रंग है?",
+            santhaliOlChiki = "ᱱᱚᱣᱟ ᱫᱚ ᱚᱠᱟ ᱨᱚᱝ ᱠᱟᱱᱟ?",
+            santhaliDevanagari = "नोवा दो ओका रंग काना?"
+        ),
+        TranslationExample(
+            hindi = "बहुत बढ़िया, तुमने सही जवाब दिया।",
+            santhaliOlChiki = "ᱟᱹᱰᱤ ᱵᱮᱥ, ᱟᱢ ᱥᱟᱹᱦᱤ ᱨᱚᱲ ᱠᱮᱫᱟ।",
+            santhaliDevanagari = "अड़ि बेस, आम् सही रोड़ केदा।"
+        ),
+        // keep your existing entries below this, updated with the new field names
+            hindi = "बच्चों, अपनी किताब खोलो।",
             santhali = "[Demo translation — Open your book]"
         ),
         TranslationExample(

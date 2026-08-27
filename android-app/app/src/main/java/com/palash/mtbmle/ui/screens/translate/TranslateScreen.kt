@@ -1,3 +1,14 @@
+
+
+/**
+ * Core translation screen (roadmap Sections 7-9).
+ *
+ * NOTE ON VIEWMODEL CONSTRUCTION:
+ * For prototype simplicity this screen builds its own ViewModel with MockTranslationEngine
+ * inline below. In a production build this construction moves to a small factory/DI setup
+ * in PalashApp.kt so the SAME screen code can receive NllbTranslationEngine instead —
+ * no change to this file is required for that swap.
+ */
 package com.palash.mtbmle.ui.screens.translate
 
 import androidx.compose.foundation.layout.Arrangement
@@ -26,15 +37,6 @@ import com.palash.mtbmle.ui.theme.PalashError
 import com.palash.mtbmle.ui.theme.PalashTextSecondary
 import com.palash.mtbmle.viewmodel.TranslateViewModel
 
-/**
- * Core translation screen (roadmap Sections 7-9).
- *
- * NOTE ON VIEWMODEL CONSTRUCTION:
- * For prototype simplicity this screen builds its own ViewModel with MockTranslationEngine
- * inline below. In a production build this construction moves to a small factory/DI setup
- * in PalashApp.kt so the SAME screen code can receive NllbTranslationEngine instead —
- * no change to this file is required for that swap.
- */
 @Composable
 fun TranslateScreen(
     viewModel: TranslateViewModel = viewModel { TranslateViewModel(MockTranslationEngine()) }
@@ -79,8 +81,11 @@ fun TranslateScreen(
                     Text("SOURCE · Hindi", style = MaterialTheme.typography.labelLarge, color = PalashTextSecondary)
                     Text(result.hindiText, style = MaterialTheme.typography.bodyLarge)
 
-                    Text("TARGET · Santhali", style = MaterialTheme.typography.labelLarge, color = PalashTextSecondary)
-                    Text(result.santhaliText, style = MaterialTheme.typography.bodyLarge)
+                    Text("TARGET · Santhali (Ol Chiki)", style = MaterialTheme.typography.labelLarge, color = PalashTextSecondary)
+                    Text(result.santhaliOlChikiText, style = MaterialTheme.typography.bodyLarge)
+
+                    Text("How to read it (Devanagari)", style = MaterialTheme.typography.labelLarge, color = PalashTextSecondary)
+                    Text(result.santhaliDevanagariText, style = MaterialTheme.typography.bodyLarge)
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -93,7 +98,7 @@ fun TranslateScreen(
 
                     Text(
                         text = if (result.isDemoResult) "Prototype result — confidence unavailable in prototype"
-                               else "Translation confidence",
+                        else "Translation confidence",
                         style = MaterialTheme.typography.bodyMedium.copy(fontStyle = FontStyle.Italic),
                         color = PalashTextSecondary
                     )

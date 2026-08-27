@@ -21,8 +21,8 @@ interface TranslationEngine {
 
 data class TranslationResult(
     val hindiText: String,
-    val santhaliText: String,
-    /** Null in the prototype — a real model may return an actual quality/confidence signal. */
+    val santhaliOlChikiText: String,
+    val santhaliDevanagariText: String,   // NEW
     val confidence: Float? = null,
     val isDemoResult: Boolean = true
 )

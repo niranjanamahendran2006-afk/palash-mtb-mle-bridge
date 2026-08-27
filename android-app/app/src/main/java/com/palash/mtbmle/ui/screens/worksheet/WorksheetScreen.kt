@@ -1,5 +1,7 @@
+/** Worksheet list + generator screen (roadmap Sections 14-16). */
 package com.palash.mtbmle.ui.screens.worksheet
 
+import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,7 +19,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.content.FileProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.palash.mtbmle.data.model.LearningOutcome
 import com.palash.mtbmle.data.model.Worksheet
@@ -26,12 +30,14 @@ import com.palash.mtbmle.ui.components.PalashLoadingState
 import com.palash.mtbmle.ui.components.PalashPrimaryButton
 import com.palash.mtbmle.ui.theme.PalashTextSecondary
 import com.palash.mtbmle.viewmodel.WorksheetViewModel
+import java.io.File
 
-/** Worksheet list + generator screen (roadmap Sections 14-16). */
 @Composable
-fun WorksheetScreen(
-    viewModel: WorksheetViewModel = viewModel { WorksheetViewModel(WorksheetRepository()) }
-) {
+fun WorksheetScreen() {
+    val context = LocalContext.current
+    val viewModel: WorksheetViewModel = viewModel {
+        WorksheetViewModel(WorksheetRepository(context = context.applicationContext))
+    }
     val uiState by viewModel.uiState.collectAsState()
 
     LazyColumn(
@@ -62,7 +68,6 @@ fun WorksheetScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
-                Text("Language: Hindi → Santhali", style = MaterialTheme.typography.bodyMedium, color = PalashTextSecondary)
                 PalashPrimaryButton(
                     text = "Generate Worksheet",
                     enabled = uiState.selectedOutcome != null,
@@ -76,7 +81,7 @@ fun WorksheetScreen(
         }
 
         uiState.generatedWorksheet?.let { ws ->
-            item { WorksheetPreviewCard(ws) }
+            item { WorksheetPreviewCard(ws, context) }
         }
 
         item { Text("Existing Worksheets", style = MaterialTheme.typography.titleLarge) }
@@ -91,27 +96,46 @@ private fun WorksheetListCard(worksheet: Worksheet) {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Text(worksheet.title, style = MaterialTheme.typography.titleMedium)
             Text("Hindi + Santhali", style = MaterialTheme.typography.bodyMedium, color = PalashTextSecondary)
-            TextButton(onClick = { /* TODO: navigate to full WorksheetPreviewScreen with this worksheet id */ }) {
-                Text("Open")
-            }
         }
     }
 }
 
 @Composable
-private fun WorksheetPreviewCard(worksheet: Worksheet) {
+private fun WorksheetPreviewCard(worksheet: Worksheet, context: android.content.Context) {
     Card(modifier = Modifier.fillMaxWidth(), elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)) {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text("PALASH — Bilingual Learning Worksheet", style = MaterialTheme.typography.titleMedium)
             Text("Learning Outcome: ${worksheet.learningOutcome.displayName}", style = MaterialTheme.typography.bodyMedium)
-            worksheet.hindiContent.zip(worksheet.santhaliContent).forEach { (hi, sat) ->
+            worksheet.hindiContent.zip(worksheet.santhaliOlChikiContent).forEach { (hi, sat) ->
                 Text("$hi   →   $sat", style = MaterialTheme.typography.bodyLarge)
             }
-            Text(
-                "Match the picture with the correct word.",
-                style = MaterialTheme.typography.bodyMedium,
-                color = PalashTextSecondary
-            )
+
+            if (worksheet.filePath != null) {
+                Text("PDF ready ✓", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
+                TextButton(onClick = { openPdf(context, worksheet.filePath) }) { Text("Open PDF") }
+                TextButton(onClick = { sharePdf(context, worksheet.filePath) }) { Text("Share PDF") }
+            }
         }
     }
+}
+
+private fun openPdf(context: android.content.Context, filePath: String) {
+    val file = File(filePath)
+    val uri = FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", file)
+    val intent = Intent(Intent.ACTION_VIEW).apply {
+        setDataAndType(uri, "application/pdf")
+        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    }
+    context.startActivity(Intent.createChooser(intent, "Open worksheet PDF"))
+}
+
+private fun sharePdf(context: android.content.Context, filePath: String) {
+    val file = File(filePath)
+    val uri = FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", file)
+    val intent = Intent(Intent.ACTION_SEND).apply {
+        type = "application/pdf"
+        putExtra(Intent.EXTRA_STREAM, uri)
+        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    }
+    context.startActivity(Intent.createChooser(intent, "Share worksheet PDF"))
 }
