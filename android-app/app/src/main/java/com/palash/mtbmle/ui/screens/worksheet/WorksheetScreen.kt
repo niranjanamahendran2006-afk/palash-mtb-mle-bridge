@@ -25,6 +25,11 @@ import com.palash.mtbmle.data.repository.WorksheetRepository
 import com.palash.mtbmle.ui.components.PalashLoadingState
 import com.palash.mtbmle.ui.components.PalashPrimaryButton
 import com.palash.mtbmle.ui.theme.PalashTextSecondary
+import com.palash.mtbmle.ui.components.CosmicBackground
+import com.palash.mtbmle.ui.components.CosmicPanel
+import com.palash.mtbmle.ui.theme.CosmicGold
+import com.palash.mtbmle.ui.theme.CosmicCyan
+import com.palash.mtbmle.ui.theme.CosmicIndigo
 import com.palash.mtbmle.viewmodel.WorksheetViewModel
 
 /** Worksheet list + generator screen (roadmap Sections 14-16). */
@@ -34,6 +39,7 @@ fun WorksheetScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
+    CosmicBackground(CosmicCyan, secondaryAccent = CosmicIndigo) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -66,13 +72,14 @@ fun WorksheetScreen(
                 PalashPrimaryButton(
                     text = "Generate Worksheet",
                     enabled = uiState.selectedOutcome != null,
+                    accentColor = CosmicGold,
                     onClick = viewModel::onGenerateClicked
                 )
             }
         }
 
         if (uiState.isGenerating) {
-            item { PalashLoadingState(label = "Preparing worksheet…") }
+            item { PalashLoadingState(label = "Preparing worksheet…", accentColor = CosmicCyan) }
         }
 
         uiState.generatedWorksheet?.let { ws ->
@@ -83,11 +90,12 @@ fun WorksheetScreen(
 
         items(uiState.worksheets) { ws -> WorksheetListCard(ws) }
     }
+    }
 }
 
 @Composable
 private fun WorksheetListCard(worksheet: Worksheet) {
-    Card(modifier = Modifier.fillMaxWidth(), elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)) {
+    CosmicPanel(accentColor = CosmicCyan) {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Text(worksheet.title, style = MaterialTheme.typography.titleMedium)
             Text("Hindi + Santhali", style = MaterialTheme.typography.bodyMedium, color = PalashTextSecondary)
@@ -100,7 +108,7 @@ private fun WorksheetListCard(worksheet: Worksheet) {
 
 @Composable
 private fun WorksheetPreviewCard(worksheet: Worksheet) {
-    Card(modifier = Modifier.fillMaxWidth(), elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)) {
+    CosmicPanel(accentColor = CosmicCyan) {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text("PALASH — Bilingual Learning Worksheet", style = MaterialTheme.typography.titleMedium)
             Text("Learning Outcome: ${worksheet.learningOutcome.displayName}", style = MaterialTheme.typography.bodyMedium)

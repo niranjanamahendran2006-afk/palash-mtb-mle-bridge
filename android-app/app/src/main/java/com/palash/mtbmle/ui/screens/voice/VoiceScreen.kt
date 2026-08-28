@@ -1,6 +1,11 @@
 package com.palash.mtbmle.ui.screens.voice
 
 import androidx.compose.foundation.background
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,6 +29,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -35,6 +41,11 @@ import com.palash.mtbmle.data.repository.VoiceTranslationEngine
 import com.palash.mtbmle.ui.theme.PalashAmberAccent
 import com.palash.mtbmle.ui.theme.PalashGreenPrimary
 import com.palash.mtbmle.ui.theme.PalashTextSecondary
+import com.palash.mtbmle.ui.components.CosmicBackground
+import com.palash.mtbmle.ui.components.CosmicPanel
+import com.palash.mtbmle.ui.theme.CosmicPink
+import com.palash.mtbmle.ui.theme.CosmicGold
+import com.palash.mtbmle.ui.theme.CosmicText
 import com.palash.mtbmle.viewmodel.ConversationTurn
 import com.palash.mtbmle.viewmodel.VoiceViewModel
 
@@ -59,6 +70,7 @@ fun VoiceScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
+    CosmicBackground(Color(0xFFFF5A5F), secondaryAccent = CosmicGold) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -66,17 +78,24 @@ fun VoiceScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Text("Voice Conversation", style = MaterialTheme.typography.headlineMedium)
+        Text("Voice Mission", color = CosmicText, style = MaterialTheme.typography.headlineMedium)
         Text("Hindi → Santhali", style = MaterialTheme.typography.titleMedium, color = PalashTextSecondary)
 
         Box(contentAlignment = Alignment.Center) {
             val isRecording = uiState.status == VoiceProcessingStatus.RECORDING
+            val pulse by rememberInfiniteTransition(label = "recording pulse").animateFloat(
+                initialValue = 1f,
+                targetValue = 1.06f,
+                animationSpec = infiniteRepeatable(tween(700), RepeatMode.Reverse),
+                label = "recording scale"
+            )
             IconButton(
                 onClick = viewModel::onMicTapped,
                 modifier = Modifier
                     .size(120.dp)
+                    .then(if (isRecording) Modifier.scale(pulse) else Modifier)
                     .background(
-                        color = if (isRecording) PalashAmberAccent else PalashGreenPrimary,
+                        color = if (isRecording) Color(0xFFFF5A5F) else CosmicGold.copy(alpha = 0.78f),
                         shape = CircleShape
                     )
             ) {
@@ -99,11 +118,8 @@ fun VoiceScreen(
         }
 
         if (uiState.status == VoiceProcessingStatus.DONE) {
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-            ) {
-                Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            CosmicPanel(accentColor = CosmicGold) {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text("Recognized Hindi", style = MaterialTheme.typography.labelLarge, color = PalashTextSecondary)
                     Text(uiState.recognizedHindiText ?: "", style = MaterialTheme.typography.bodyLarge)
 
@@ -135,6 +151,7 @@ fun VoiceScreen(
                 Text("Clear Conversation")
             }
         }
+    }
     }
 }
 

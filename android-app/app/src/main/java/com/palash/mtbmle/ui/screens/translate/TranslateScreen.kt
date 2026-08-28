@@ -24,6 +24,12 @@ import com.palash.mtbmle.ui.components.PalashLoadingState
 import com.palash.mtbmle.ui.components.PalashPrimaryButton
 import com.palash.mtbmle.ui.theme.PalashError
 import com.palash.mtbmle.ui.theme.PalashTextSecondary
+import com.palash.mtbmle.ui.components.CosmicBackground
+import com.palash.mtbmle.ui.components.CosmicPanel
+import com.palash.mtbmle.ui.theme.CosmicIndigo
+import com.palash.mtbmle.ui.theme.CosmicCyan
+import com.palash.mtbmle.ui.theme.CosmicMint
+import com.palash.mtbmle.ui.theme.CosmicText
 import com.palash.mtbmle.viewmodel.TranslateViewModel
 
 /**
@@ -41,13 +47,14 @@ fun TranslateScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
+    CosmicBackground(CosmicMint, secondaryAccent = CosmicCyan) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Text("Translate", style = MaterialTheme.typography.headlineMedium)
+        Text("Decode a sentence", color = CosmicText, style = MaterialTheme.typography.headlineMedium)
         Text("Hindi → Santhali", style = MaterialTheme.typography.titleMedium, color = PalashTextSecondary)
 
         Text("Enter Hindi sentence", style = MaterialTheme.typography.labelLarge)
@@ -63,19 +70,15 @@ fun TranslateScreen(
             Text(uiState.errorMessage!!, color = PalashError, style = MaterialTheme.typography.bodyMedium)
         }
 
-        PalashPrimaryButton(text = "Translate", onClick = viewModel::onTranslateClicked)
+        PalashPrimaryButton(text = "Translate", accentColor = CosmicMint, onClick = viewModel::onTranslateClicked)
 
         if (uiState.isLoading) {
-            PalashLoadingState(label = "Translating…")
+            PalashLoadingState(label = "Translating…", accentColor = CosmicMint)
         }
 
         uiState.result?.let { result ->
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-            ) {
-                Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            CosmicPanel(accentColor = CosmicIndigo) {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text("SOURCE · Hindi", style = MaterialTheme.typography.labelLarge, color = PalashTextSecondary)
                     Text(result.hindiText, style = MaterialTheme.typography.bodyLarge)
 
@@ -100,5 +103,6 @@ fun TranslateScreen(
                 }
             }
         }
+    }
     }
 }

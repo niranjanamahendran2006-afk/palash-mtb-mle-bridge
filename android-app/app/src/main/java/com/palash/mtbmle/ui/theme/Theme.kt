@@ -1,14 +1,14 @@
 package com.palash.mtbmle.ui.theme
 
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 
-private val PalashColorScheme = lightColorScheme(
-    primary = PalashGreenPrimary,
-    onPrimary = PalashSurface,
-    primaryContainer = PalashGreenDark,
-    secondary = PalashAmberAccent,
+private val PalashColorScheme = darkColorScheme(
+    primary = CosmicCyan,
+    onPrimary = CosmicMidnight,
+    primaryContainer = CosmicNavy,
+    secondary = CosmicViolet,
     background = PalashBackground,
     surface = PalashSurface,
     onBackground = PalashTextPrimary,

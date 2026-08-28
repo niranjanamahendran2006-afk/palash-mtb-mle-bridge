@@ -12,17 +12,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.palash.mtbmle.data.model.OfflineStatus
-import com.palash.mtbmle.ui.theme.PalashOfflineReady
-import com.palash.mtbmle.ui.theme.PalashTextSecondary
+import com.palash.mtbmle.ui.theme.CosmicMint
+import com.palash.mtbmle.ui.theme.CosmicTextMuted
 
 /** Small "● Offline Ready" style indicator (roadmap Section 6 & 20). */
 @Composable
 fun OfflineStatusBadge(status: OfflineStatus, modifier: Modifier = Modifier) {
     val (label, color) = when (status) {
-        OfflineStatus.OFFLINE_READY -> "Offline Ready" to PalashOfflineReady
-        OfflineStatus.OFFLINE -> "Offline Mode" to PalashTextSecondary
-        OfflineStatus.SYNCING -> "Syncing…" to PalashTextSecondary
-        OfflineStatus.ONLINE -> "Online" to PalashTextSecondary
+        OfflineStatus.OFFLINE_READY -> "Offline Ready" to CosmicMint
+        OfflineStatus.OFFLINE -> "Offline Mode" to CosmicTextMuted
+        OfflineStatus.SYNCING -> "Syncing…" to CosmicTextMuted
+        OfflineStatus.ONLINE -> "Online" to CosmicTextMuted
     }
     Row(
         modifier = modifier

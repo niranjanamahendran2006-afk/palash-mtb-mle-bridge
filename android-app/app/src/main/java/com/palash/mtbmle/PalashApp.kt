@@ -15,6 +15,9 @@ import androidx.navigation.compose.rememberNavController
 import com.palash.mtbmle.navigation.PalashNavGraph
 import com.palash.mtbmle.navigation.Screen
 import com.palash.mtbmle.ui.theme.PalashTheme
+import com.palash.mtbmle.ui.components.CosmicBackground
+import com.palash.mtbmle.ui.theme.CosmicCyan
+import com.palash.mtbmle.ui.theme.CosmicTextMuted
 
 /**
  * App root: bottom navigation (Home / Translate / Voice / Worksheets / Settings) + nav graph.
@@ -25,9 +28,11 @@ fun PalashApp() {
     PalashTheme {
         val navController = rememberNavController()
 
+        CosmicBackground(accentColor = CosmicCyan) {
         Scaffold(
+            containerColor = androidx.compose.ui.graphics.Color.Transparent,
             bottomBar = {
-                NavigationBar {
+                NavigationBar(containerColor = CosmicCyan.copy(alpha = 0.08f)) {
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
                     val currentDestination = navBackStackEntry?.destination
 
@@ -45,7 +50,12 @@ fun PalashApp() {
                                 }
                             },
                             icon = { androidx.compose.material3.Icon(screen.icon, contentDescription = screen.label) },
-                            label = { Text(screen.label) }
+                            label = { Text(screen.label, color = if (selected) CosmicCyan else CosmicTextMuted) },
+                            colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
+                                selectedIconColor = CosmicCyan,
+                                unselectedIconColor = CosmicTextMuted,
+                                indicatorColor = CosmicCyan.copy(alpha = 0.18f)
+                            )
                         )
                     }
                 }
@@ -54,6 +64,7 @@ fun PalashApp() {
             androidx.compose.foundation.layout.Box(modifier = Modifier.padding(innerPadding)) {
                 PalashNavGraph(navController = navController)
             }
+        }
         }
     }
 }

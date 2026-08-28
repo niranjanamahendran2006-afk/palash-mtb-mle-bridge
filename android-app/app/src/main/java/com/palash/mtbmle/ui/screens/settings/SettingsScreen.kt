@@ -20,6 +20,11 @@ import androidx.compose.ui.unit.dp
 import com.palash.mtbmle.data.model.ModelInfo
 import com.palash.mtbmle.ui.components.PalashSectionLabel
 import com.palash.mtbmle.ui.theme.PalashTextSecondary
+import com.palash.mtbmle.ui.components.CosmicBackground
+import com.palash.mtbmle.ui.components.CosmicPanel
+import com.palash.mtbmle.ui.theme.CosmicMint
+import com.palash.mtbmle.ui.theme.CosmicIndigo
+import com.palash.mtbmle.ui.theme.CosmicPink
 
 /** Settings screen (roadmap Section 17). Prototype values are static/local — no backend. */
 @Composable
@@ -27,19 +32,20 @@ fun SettingsScreen() {
     var offlineModeEnabled by remember { mutableStateOf(true) }
     val modelInfo = remember { ModelInfo() }
 
+    CosmicBackground(CosmicIndigo, secondaryAccent = CosmicPink) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Text("Settings", style = MaterialTheme.typography.headlineMedium)
+        Text("Settings", color = CosmicMint, style = MaterialTheme.typography.headlineMedium)
 
         PalashSectionLabel("LANGUAGE")
         SettingsRow(label = "Source", value = "Hindi")
         SettingsRow(label = "Target", value = "Santhali")
 
-        Divider()
+        Divider(color = CosmicMint.copy(alpha = 0.22f))
 
         PalashSectionLabel("APPLICATION")
         Row(
@@ -50,13 +56,13 @@ fun SettingsScreen() {
             Switch(checked = offlineModeEnabled, onCheckedChange = { offlineModeEnabled = it })
         }
 
-        Divider()
+        Divider(color = CosmicMint.copy(alpha = 0.22f))
 
         PalashSectionLabel("ABOUT")
         SettingsRow(label = "PALASH MTB-MLE", value = "")
         SettingsRow(label = "Version", value = "Prototype 1.0")
 
-        Divider()
+        Divider(color = CosmicMint.copy(alpha = 0.22f))
 
         PalashSectionLabel("DATA & MODEL INFORMATION")
         Text(
@@ -68,6 +74,7 @@ fun SettingsScreen() {
         SettingsRow(label = "Translation", value = modelInfo.translationModel)
         SettingsRow(label = "Speech Recognition", value = modelInfo.speechRecognitionModel)
         SettingsRow(label = "Speech Output", value = modelInfo.speechSynthesisModel)
+    }
     }
 }
 
