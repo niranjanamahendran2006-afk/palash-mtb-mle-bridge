@@ -70,4 +70,5 @@ dependencies {
     // implementations only, per the roadmap's "no fake ML" rule.
 
     debugImplementation("androidx.compose.ui:ui-tooling")
+    implementation("com.microsoft.onnxruntime:onnxruntime-android:1.18.0")
 }
