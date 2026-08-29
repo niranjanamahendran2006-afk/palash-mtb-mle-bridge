@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "hindi": "आज हम गिनती सीखेंगे।",
+    "santali_ol_chiki": "ᱛᱮᱦᱮᱧ ᱵᱚᱱ ᱞᱮᱠᱷᱟ ᱪᱮᱫᱚᱜᱼᱟ᱾",
+    "transliteration_devanagari": "तेहेञ बोन लेखा चेदोग-आ।"
+  },
+  {
+    "id": 2,
+    "hindi": "नमस्ते, आप कैसे हैं?",
+    "santali_ol_chiki": "ᱡᱚᱦᱟᱨ, ᱪᱮᱫ ᱞᱮᱠᱟ ᱢᱮᱱᱟᱢᱟ?",
+    "transliteration_devanagari": "जोहार, चेद लेका मेनामा?"
+  },
+  {
+    "id": 3,
+    "hindi": "पानी पीना बहुत जरूरी है।",
+    "santali_ol_chiki": "ᱫᱟ structure: ᱫᱟ structure ᱧᱩ ᱟᱹᱰᱤ ᱞᱟᱹᱠᱛᱤᱭᱟᱱᱟ᱾",
+    "transliteration_devanagari": "दाः ञु अड़ि लाक्तियाना।"
+  },
+  {
+    "id": 4,
+    "hindi": "बच्चे स्कूल जा रहे हैं।",
+    "santali_ol_chiki": "ᱜᱤᱫᱽᱨᱟᱹ ᱤᱛᱩᱱ ᱟᱥᱲᱟ ᱛᱮᱠᱚ ᱪᱟᱞᱟᱜ ᱠᱟᱱᱟ᱾",
+    "transliteration_devanagari": "गिद्र‌़ इतुन आशड़ा तेको चालाग काना।"
+  },
+  {
+    "id": 5,
+    "hindi": "यह पुस्तक बहुत अच्छी है।",
+    "santali_ol_chiki": "ᱱᱚᱣᱟ ᱯᱚᱛᱚᱵ ᱟᱹᱰᱤ ᱵᱮᱥᱟ᱾",
+    "transliteration_devanagari": "नोवा पोतोब अड़ि बेसा।"
+  },
+  {
+    "id": 6,
+    "hindi": "मुझे भूख लगी है।",
+    "santali_ol_chiki": "ᱤᱧ ᱨᱮᱸᱜᱮᱡ ᱮᱫ ᱤᱧᱟ᱾",
+    "transliteration_devanagari": "इञ रेंगेज एद इञा।"
+  },
+  {
+    "id": 7,
+    "hindi": "सूरज पूरब में उगता है।",
+    "santali_ol_chiki": "ᱥᱤᱸᱜᱤ ᱥᱟᱢᱟᱝ ᱥᱮᱫ ᱮ ᱨᱟᱠᱟᱵᱼᱟ᱾",
+    "transliteration_devanagari": "सिँगि सामाँग सेद ए राकाब-आ।"
+  },
+  {
+    "id": 8,
+    "hindi": "हम सब मिलकर पढ़ेंगे।",
+    "santali_ol_chiki": "ᱟᱵᱚ ᱡᱚᱛᱚ ᱢᱤᱫ ᱛᱮᱵᱚᱱ ᱯᱟᱲᱦᱟᱣᱼᱟ᱾",
+    "transliteration_devanagari": "आबो जोतो मिद तेबोन पाड़हाव-आ।"
+  },
+  {
+    "id": 9,
+    "hindi": "आपका नाम क्या है?",
+    "santali_ol_chiki": "ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ ᱫᱚ ᱪᱮᱫ?",
+    "transliteration_devanagari": "आमाग ञुतुम दो चेद?"
+  },
+  {
+    "id": 10,
+    "hindi": "आज का मौसम सुहावना है।",
+    "santali_ol_chiki": "ᱛᱮᱦᱮᱧᱟᱜ ᱦᱚᱭ-ᱦᱤᱥᱤᱫ ᱟᱹᱰᱤ ᱱᱟᱯᱟᱭᱟ᱾",
+    "transliteration_devanagari": "तेहेञाग होय-हिसिद अड़ि नापाया।"
+  }
+]
