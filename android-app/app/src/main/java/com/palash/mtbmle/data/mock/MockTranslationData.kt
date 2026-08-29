@@ -1,6 +1,3 @@
-package com.palash.mtbmle.data.mock
-
-import com.palash.mtbmle.data.model.TranslationExample
 
 /**
  * DEMO classroom sentence pairs for the prototype only.
@@ -11,6 +8,10 @@ import com.palash.mtbmle.data.model.TranslationExample
  * native-speaker-validated hindi,santhali,source dataset from the Data/Backend team
  * (see /data/cleaned/ in the repo root) once available.
  */
+package com.palash.mtbmle.data.mock
+
+import com.palash.mtbmle.data.model.TranslationExample
+
 object MockTranslationData {
     val examples = listOf(
         TranslationExample(
@@ -33,57 +34,60 @@ object MockTranslationData {
             santhaliOlChiki = "ᱟᱹᱰᱤ ᱵᱮᱥ, ᱟᱢ ᱥᱟᱹᱦᱤ ᱨᱚᱲ ᱠᱮᱫᱟ।",
             santhaliDevanagari = "अड़ि बेस, आम् सही रोड़ केदा।"
         ),
-        // keep your existing entries below this, updated with the new field names
-            hindi = "बच्चों, अपनी किताब खोलो।",
-            santhali = "[Demo translation — Open your book]"
-        ),
         TranslationExample(
             hindi = "नमस्ते बच्चों।",
-            santhali = "[Demo translation — Greeting students]"
+            santhaliOlChiki = "[Demo translation — Greeting students]",
+            santhaliDevanagari = "[Demo translation — Greeting students]"
         ),
         TranslationExample(
             hindi = "अपनी जगह पर बैठो।",
-            santhali = "[Demo translation — Sit down]"
+            santhaliOlChiki = "[Demo translation — Sit down]",
+            santhaliDevanagari = "[Demo translation — Sit down]"
         ),
         TranslationExample(
             hindi = "खड़े हो जाओ।",
-            santhali = "[Demo translation — Stand up]"
+            santhaliOlChiki = "[Demo translation — Stand up]",
+            santhaliDevanagari = "[Demo translation — Stand up]"
         ),
         TranslationExample(
             hindi = "ध्यान से सुनो।",
-            santhali = "[Demo translation — Listen carefully]"
+            santhaliOlChiki = "[Demo translation — Listen carefully]",
+            santhaliDevanagari = "[Demo translation — Listen carefully]"
         ),
         TranslationExample(
             hindi = "यह शब्द पढ़ो।",
-            santhali = "[Demo translation — Read this word]"
+            santhaliOlChiki = "[Demo translation — Read this word]",
+            santhaliDevanagari = "[Demo translation — Read this word]"
         ),
         TranslationExample(
             hindi = "उत्तर लिखो।",
-            santhali = "[Demo translation — Write the answer]"
+            santhaliOlChiki = "[Demo translation — Write the answer]",
+            santhaliDevanagari = "[Demo translation — Write the answer]"
         ),
         TranslationExample(
             hindi = "संख्याएँ गिनो।",
-            santhali = "[Demo translation — Count the numbers]"
+            santhaliOlChiki = "[Demo translation — Count the numbers]",
+            santhaliDevanagari = "[Demo translation — Count the numbers]"
         ),
         TranslationExample(
             hindi = "चित्र को देखो।",
-            santhali = "[Demo translation — Look at the picture]"
-        ),
-        TranslationExample(
-            hindi = "यह क्या है?",
-            santhali = "[Demo translation — What is this?]"
+            santhaliOlChiki = "[Demo translation — Look at the picture]",
+            santhaliDevanagari = "[Demo translation — Look at the picture]"
         ),
         TranslationExample(
             hindi = "मेरे पीछे दोहराओ।",
-            santhali = "[Demo translation — Repeat after me]"
+            santhaliOlChiki = "[Demo translation — Repeat after me]",
+            santhaliDevanagari = "[Demo translation — Repeat after me]"
         ),
         TranslationExample(
             hindi = "बहुत अच्छा!",
-            santhali = "[Demo translation — Very good]"
+            santhaliOlChiki = "[Demo translation — Very good]",
+            santhaliDevanagari = "[Demo translation — Very good]"
         ),
         TranslationExample(
             hindi = "फिर से कोशिश करो।",
-            santhali = "[Demo translation — Try again]"
+            santhaliOlChiki = "[Demo translation — Try again]",
+            santhaliDevanagari = "[Demo translation — Try again]"
         )
     )
 }

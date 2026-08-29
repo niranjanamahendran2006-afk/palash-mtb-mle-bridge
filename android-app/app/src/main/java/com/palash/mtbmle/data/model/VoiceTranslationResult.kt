@@ -1,4 +1,4 @@
-package com.palash.mtbmle.data.model
+
 
 /**
  * The result contract for one voice-translation turn.
@@ -7,9 +7,12 @@ package com.palash.mtbmle.data.model
  * must eventually return. The Android app depends ONLY on this data class — it never
  * needs to know whether the values came from MockVoiceTranslationEngine or the real one.
  */
+package com.palash.mtbmle.data.model
+
 data class VoiceTranslationResult(
     val recognizedHindiText: String,
     val translatedSanthaliText: String,
+    val translatedSanthaliDevanagari: String,
     val processingTimeMillis: Long,
     val status: VoiceProcessingStatus,
     val isDemoResult: Boolean = true

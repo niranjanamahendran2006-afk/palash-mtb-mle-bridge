@@ -1,3 +1,10 @@
+
+/**
+ * Orchestrates the mic-tap -> Listening -> Translating -> Speaking -> Done flow.
+ * Depends only on VoiceTranslationEngine, which itself composes the three swappable
+ * engine interfaces (ASR / MT / TTS) — see data/repository/VoiceTranslationEngine.kt.
+ */
+
 package com.palash.mtbmle.viewmodel
 
 import androidx.lifecycle.ViewModel
@@ -10,22 +17,22 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-data class ConversationTurn(val hindiText: String, val santhaliText: String)
+data class ConversationTurn(
+    val hindiText: String,
+    val santhaliText: String,
+    val santhaliDevanagari: String
+)
 
 data class VoiceUiState(
     val status: VoiceProcessingStatus = VoiceProcessingStatus.IDLE,
     val recognizedHindiText: String? = null,
     val translatedSanthaliText: String? = null,
+    val translatedSanthaliDevanagari: String? = null,
     val processingTimeMillis: Long? = null,
     val history: List<ConversationTurn> = emptyList(),
     val errorMessage: String? = null
 )
 
-/**
- * Orchestrates the mic-tap -> Listening -> Translating -> Speaking -> Done flow.
- * Depends only on VoiceTranslationEngine, which itself composes the three swappable
- * engine interfaces (ASR / MT / TTS) — see data/repository/VoiceTranslationEngine.kt.
- */
 class VoiceViewModel(private val voiceTranslationEngine: VoiceTranslationEngine) : ViewModel() {
 
     private val _uiState = MutableStateFlow(VoiceUiState())
@@ -40,8 +47,6 @@ class VoiceViewModel(private val voiceTranslationEngine: VoiceTranslationEngine)
                 errorMessage = null
             )
 
-            // Simulated recording duration; real implementation will use Android's
-            // microphone APIs and detect silence / a stop tap instead of a fixed delay.
             kotlinx.coroutines.delay(1200)
 
             _uiState.value = _uiState.value.copy(status = VoiceProcessingStatus.PROCESSING)
@@ -50,16 +55,18 @@ class VoiceViewModel(private val voiceTranslationEngine: VoiceTranslationEngine)
                 val result = voiceTranslationEngine.translateVoice(AudioInput(durationMillis = 1200))
 
                 _uiState.value = _uiState.value.copy(status = VoiceProcessingStatus.SPEAKING)
-                kotlinx.coroutines.delay(400) // brief "Speaking..." state before showing Done
+                kotlinx.coroutines.delay(400)
 
                 _uiState.value = _uiState.value.copy(
                     status = VoiceProcessingStatus.DONE,
                     recognizedHindiText = result.recognizedHindiText,
                     translatedSanthaliText = result.translatedSanthaliText,
+                    translatedSanthaliDevanagari = result.translatedSanthaliDevanagari,
                     processingTimeMillis = result.processingTimeMillis,
                     history = _uiState.value.history + ConversationTurn(
                         hindiText = result.recognizedHindiText,
-                        santhaliText = result.translatedSanthaliText
+                        santhaliText = result.translatedSanthaliText,
+                        santhaliDevanagari = result.translatedSanthaliDevanagari
                     )
                 )
             } catch (e: Exception) {

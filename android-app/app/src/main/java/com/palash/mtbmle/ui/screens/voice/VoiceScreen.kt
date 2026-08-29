@@ -1,3 +1,13 @@
+
+
+/**
+ * Voice Conversation screen (roadmap Sections 10-13).
+ *
+ * The mic button is the single interaction point. All ASR -> MT -> TTS complexity is
+ * hidden behind VoiceViewModel + VoiceTranslationEngine — this file only ever renders
+ * whatever VoiceProcessingStatus currently is.
+ */
+
 package com.palash.mtbmle.ui.screens.voice
 
 import androidx.compose.foundation.background
@@ -38,13 +48,6 @@ import com.palash.mtbmle.ui.theme.PalashTextSecondary
 import com.palash.mtbmle.viewmodel.ConversationTurn
 import com.palash.mtbmle.viewmodel.VoiceViewModel
 
-/**
- * Voice Conversation screen (roadmap Sections 10-13).
- *
- * The mic button is the single interaction point. All ASR -> MT -> TTS complexity is
- * hidden behind VoiceViewModel + VoiceTranslationEngine — this file only ever renders
- * whatever VoiceProcessingStatus currently is.
- */
 @Composable
 fun VoiceScreen(
     viewModel: VoiceViewModel = viewModel {
@@ -107,8 +110,11 @@ fun VoiceScreen(
                     Text("Recognized Hindi", style = MaterialTheme.typography.labelLarge, color = PalashTextSecondary)
                     Text(uiState.recognizedHindiText ?: "", style = MaterialTheme.typography.bodyLarge)
 
-                    Text("Santhali", style = MaterialTheme.typography.labelLarge, color = PalashTextSecondary)
+                    Text("Santhali (Ol Chiki)", style = MaterialTheme.typography.labelLarge, color = PalashTextSecondary)
                     Text(uiState.translatedSanthaliText ?: "", style = MaterialTheme.typography.bodyLarge)
+
+                    Text("How to read it (Devanagari)", style = MaterialTheme.typography.labelLarge, color = PalashTextSecondary)
+                    Text(uiState.translatedSanthaliDevanagari ?: "", style = MaterialTheme.typography.bodyLarge)
 
                     Text(
                         "Demo processing time: ${(uiState.processingTimeMillis ?: 0) / 1000.0} sec",
@@ -143,8 +149,10 @@ private fun ConversationRow(turn: ConversationTurn) {
     Column {
         Text("Teacher", style = MaterialTheme.typography.labelLarge, color = PalashTextSecondary)
         Text(turn.hindiText, style = MaterialTheme.typography.bodyMedium)
-        Text("Santhali", style = MaterialTheme.typography.labelLarge, color = PalashTextSecondary)
+        Text("Santhali (Ol Chiki)", style = MaterialTheme.typography.labelLarge, color = PalashTextSecondary)
         Text(turn.santhaliText, style = MaterialTheme.typography.bodyMedium)
+        Text("How to read it", style = MaterialTheme.typography.labelLarge, color = PalashTextSecondary)
+        Text(turn.santhaliDevanagari, style = MaterialTheme.typography.bodyMedium)
     }
 }
 

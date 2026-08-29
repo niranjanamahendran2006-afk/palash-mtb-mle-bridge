@@ -1,9 +1,18 @@
+
+
+/**
+ * The Android developer only depends on the TranslationEngine INTERFACE here.
+ * Swapping MockTranslationEngine -> NllbTranslationEngine at the call site
+ * (see PalashApp.kt where this ViewModel is constructed) is the only change
+ * ever needed to go from prototype to real ML.
+ */
 package com.palash.mtbmle.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.palash.mtbmle.data.repository.TranslationEngine
 import com.palash.mtbmle.data.repository.TranslationResult
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,15 +22,11 @@ data class TranslateUiState(
     val inputText: String = "",
     val isLoading: Boolean = false,
     val result: TranslationResult? = null,
-    val errorMessage: String? = null
+    val errorMessage: String? = null,
+    val isSpeaking: Boolean = false,
+    val copiedMessage: String? = null
 )
 
-/**
- * The Android developer only depends on the TranslationEngine INTERFACE here.
- * Swapping MockTranslationEngine -> NllbTranslationEngine at the call site
- * (see PalashApp.kt where this ViewModel is constructed) is the only change
- * ever needed to go from prototype to real ML.
- */
 class TranslateViewModel(private val translationEngine: TranslationEngine) : ViewModel() {
 
     private val _uiState = MutableStateFlow(TranslateUiState())
@@ -49,6 +54,23 @@ class TranslateViewModel(private val translationEngine: TranslationEngine) : Vie
                     errorMessage = "Translation could not be completed. Please try again."
                 )
             }
+        }
+    }
+
+    fun onPlayClicked() {
+        val result = _uiState.value.result ?: return
+        viewModelScope.launch {
+            _uiState.value = _uiState.value.copy(isSpeaking = true)
+            delay(900) // simulated TTS playback — real MMS-TTS engine plugs in here later
+            _uiState.value = _uiState.value.copy(isSpeaking = false)
+        }
+    }
+
+    fun onCopiedConfirmed() {
+        viewModelScope.launch {
+            _uiState.value = _uiState.value.copy(copiedMessage = "Copied to clipboard")
+            delay(1500)
+            _uiState.value = _uiState.value.copy(copiedMessage = null)
         }
     }
 

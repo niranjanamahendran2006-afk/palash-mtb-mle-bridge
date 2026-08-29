@@ -1,14 +1,3 @@
-
-
-/**
- * Core translation screen (roadmap Sections 7-9).
- *
- * NOTE ON VIEWMODEL CONSTRUCTION:
- * For prototype simplicity this screen builds its own ViewModel with MockTranslationEngine
- * inline below. In a production build this construction moves to a small factory/DI setup
- * in PalashApp.kt so the SAME screen code can receive NllbTranslationEngine instead —
- * no change to this file is required for that swap.
- */
 package com.palash.mtbmle.ui.screens.translate
 
 import androidx.compose.foundation.layout.Arrangement
@@ -19,14 +8,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -34,6 +27,7 @@ import com.palash.mtbmle.data.repository.MockTranslationEngine
 import com.palash.mtbmle.ui.components.PalashLoadingState
 import com.palash.mtbmle.ui.components.PalashPrimaryButton
 import com.palash.mtbmle.ui.theme.PalashError
+import com.palash.mtbmle.ui.theme.PalashGreenPrimary
 import com.palash.mtbmle.ui.theme.PalashTextSecondary
 import com.palash.mtbmle.viewmodel.TranslateViewModel
 
@@ -42,6 +36,7 @@ fun TranslateScreen(
     viewModel: TranslateViewModel = viewModel { TranslateViewModel(MockTranslationEngine()) }
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val clipboardManager = LocalClipboardManager.current
 
     Column(
         modifier = Modifier
@@ -87,12 +82,30 @@ fun TranslateScreen(
                     Text("How to read it (Devanagari)", style = MaterialTheme.typography.labelLarge, color = PalashTextSecondary)
                     Text(result.santhaliDevanagariText, style = MaterialTheme.typography.bodyLarge)
 
+                    if (uiState.isSpeaking) {
+                        Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                            CircularProgressIndicator(modifier = Modifier.size(16.dp), strokeWidth = 2.dp, color = PalashGreenPrimary)
+                            Text("  Speaking…", style = MaterialTheme.typography.bodyMedium, color = PalashTextSecondary)
+                        }
+                    }
+
+                    if (uiState.copiedMessage != null) {
+                        Text(uiState.copiedMessage!!, style = MaterialTheme.typography.bodyMedium, color = PalashGreenPrimary)
+                    }
+
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        TextButton(onClick = { /* TODO: wire to real TTS playback */ }) { Text("🔊 Play") }
-                        TextButton(onClick = { /* TODO: copy to clipboard */ }) { Text("Copy") }
+                        TextButton(onClick = viewModel::onPlayClicked) { Text("🔊 Play") }
+                        TextButton(onClick = {
+                            clipboardManager.setText(
+                                AnnotatedString(
+                                    "${result.hindiText}\n${result.santhaliOlChikiText}\n${result.santhaliDevanagariText}"
+                                )
+                            )
+                            viewModel.onCopiedConfirmed()
+                        }) { Text("Copy") }
                         TextButton(onClick = viewModel::onClear) { Text("Clear") }
                     }
 
