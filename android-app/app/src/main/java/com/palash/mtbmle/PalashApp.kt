@@ -36,13 +36,16 @@ fun PalashApp() {
                         NavigationBarItem(
                             selected = selected,
                             onClick = {
-                                navController.navigate(screen.route) {
-                                    popUpTo(navController.graph.findStartDestination().id) {
-                                        saveState = true
+                                if (currentDestination?.route != screen.route) {
+                                    navController.navigate(screen.route) {
+                                        // This clears out the history stack so pressing back doesn't pile up screens
+                                        popUpTo(navController.graph.findStartDestination().id) {
+                                            inclusive = false
+                                        }
+                                        launchSingleTop = true
                                     }
-                                    launchSingleTop = true
-                                    restoreState = true
                                 }
+
                             },
                             icon = { androidx.compose.material3.Icon(screen.icon, contentDescription = screen.label) },
                             label = { Text(screen.label) }
