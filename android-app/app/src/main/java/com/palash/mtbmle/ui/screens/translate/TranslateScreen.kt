@@ -26,7 +26,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.palash.mtbmle.data.repository.MockTranslationEngine
 import com.palash.mtbmle.ui.components.PalashLoadingState
 import com.palash.mtbmle.ui.components.PalashPrimaryButton
-import com.palash.mtbmle.ui.theme.PalashError
+import com.palash.mtbmle.ui.theme.PalashErrorgit add .
+git commit -m "add PDF export, transliteration, play/copy buttons"
+git pull
 import com.palash.mtbmle.ui.theme.PalashGreenPrimary
 import com.palash.mtbmle.ui.theme.PalashTextSecondary
 import com.palash.mtbmle.viewmodel.TranslateViewModel
