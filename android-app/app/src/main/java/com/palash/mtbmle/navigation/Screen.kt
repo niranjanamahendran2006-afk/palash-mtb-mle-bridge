@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 /** Every navigable destination in the app, in one place, per the roadmap's clean-architecture rule. */
 sealed class Screen(val route: String, val label: String, val icon: ImageVector) {
+    data object Welcome : Screen("welcome", "Welcome", Icons.Filled.Home)
     data object Home : Screen("home", "Home", Icons.Filled.Home)
     data object Translate : Screen("translate", "Translate", Icons.Filled.Translate)
     data object Voice : Screen("voice", "Voice", Icons.Filled.Mic)

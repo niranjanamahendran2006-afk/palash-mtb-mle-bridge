@@ -9,10 +9,23 @@ import com.palash.mtbmle.ui.screens.settings.SettingsScreen
 import com.palash.mtbmle.ui.screens.translate.TranslateScreen
 import com.palash.mtbmle.ui.screens.voice.VoiceScreen
 import com.palash.mtbmle.ui.screens.worksheet.WorksheetScreen
+import com.palash.mtbmle.ui.screens.welcome.WelcomeScreen
 
 @Composable
 fun PalashNavGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Screen.Home.route) {
+    NavHost(navController = navController, startDestination = Screen.Welcome.route) {
+
+        composable(Screen.Welcome.route) {
+            WelcomeScreen(
+                onGetStarted = {
+                    navController.navigate(Screen.Home.route) {
+                        popUpTo(Screen.Welcome.route) {
+                            inclusive = true
+                        }
+                    }
+                }
+            )
+        }
         composable(Screen.Home.route) {
             HomeScreen(
                 onNavigateToTranslate = { navController.navigate(Screen.Translate.route) },
