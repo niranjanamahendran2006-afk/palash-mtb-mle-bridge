@@ -14,6 +14,15 @@ val CosmicPink = Color(0xFFFF65B8)
 val CosmicGold = Color(0xFFFFC857)
 val CosmicMint = Color(0xFF65E0B0)
 
+// Per-region galaxy accents (roadmap: "different galaxy for each screen").
+// Every screen still renders on the same deep-space base (CosmicMidnight/CosmicNavy) —
+// these only tint that region's nebula, glow and UI accents.
+val CosmicBlue = Color(0xFF4C8DFF)       // Home region
+val CosmicMagenta = Color(0xFFE0459F)    // Translate region
+val CosmicTeal = Color(0xFF2FD9C4)       // Voice region
+val CosmicOrange = Color(0xFFFF8A4C)     // Worksheets region
+val CosmicCoral = Color(0xFFFF5F5F)      // Worksheets region (warm accent)
+
 // A calm, education-appropriate palette — deliberately NOT chatbot/tech-startup styled.
 val PalashGreenPrimary = Color(0xFF1E6E5C)
 val PalashGreenDark = Color(0xFF124A3D)

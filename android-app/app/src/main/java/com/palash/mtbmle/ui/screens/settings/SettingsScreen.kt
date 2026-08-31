@@ -22,9 +22,10 @@ import com.palash.mtbmle.ui.components.PalashSectionLabel
 import com.palash.mtbmle.ui.theme.PalashTextSecondary
 import com.palash.mtbmle.ui.components.CosmicBackground
 import com.palash.mtbmle.ui.components.CosmicPanel
-import com.palash.mtbmle.ui.theme.CosmicMint
 import com.palash.mtbmle.ui.theme.CosmicIndigo
-import com.palash.mtbmle.ui.theme.CosmicPink
+import com.palash.mtbmle.ui.theme.CosmicViolet
+import com.palash.mtbmle.ui.theme.CosmicBlue
+import com.palash.mtbmle.ui.theme.CosmicText
 
 /** Settings screen (roadmap Section 17). Prototype values are static/local — no backend. */
 @Composable
@@ -32,20 +33,25 @@ fun SettingsScreen() {
     var offlineModeEnabled by remember { mutableStateOf(true) }
     val modelInfo = remember { ModelInfo() }
 
-    CosmicBackground(CosmicIndigo, secondaryAccent = CosmicPink) {
+    CosmicBackground(
+        accentColor = CosmicIndigo,
+        secondaryAccent = CosmicViolet,
+        tertiaryAccent = CosmicBlue,
+        intensity = 0.65f
+    ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Text("Settings", color = CosmicMint, style = MaterialTheme.typography.headlineMedium)
+        Text("Settings", color = CosmicText, style = MaterialTheme.typography.headlineMedium)
 
         PalashSectionLabel("LANGUAGE")
         SettingsRow(label = "Source", value = "Hindi")
         SettingsRow(label = "Target", value = "Santhali")
 
-        Divider(color = CosmicMint.copy(alpha = 0.22f))
+        Divider(color = CosmicIndigo.copy(alpha = 0.22f))
 
         PalashSectionLabel("APPLICATION")
         Row(
@@ -56,13 +62,13 @@ fun SettingsScreen() {
             Switch(checked = offlineModeEnabled, onCheckedChange = { offlineModeEnabled = it })
         }
 
-        Divider(color = CosmicMint.copy(alpha = 0.22f))
+        Divider(color = CosmicIndigo.copy(alpha = 0.22f))
 
         PalashSectionLabel("ABOUT")
         SettingsRow(label = "PALASH MTB-MLE", value = "")
         SettingsRow(label = "Version", value = "Prototype 1.0")
 
-        Divider(color = CosmicMint.copy(alpha = 0.22f))
+        Divider(color = CosmicIndigo.copy(alpha = 0.22f))
 
         PalashSectionLabel("DATA & MODEL INFORMATION")
         Text(

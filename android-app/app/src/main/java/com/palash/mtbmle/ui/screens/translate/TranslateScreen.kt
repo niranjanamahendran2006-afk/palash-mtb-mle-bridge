@@ -26,9 +26,9 @@ import com.palash.mtbmle.ui.theme.PalashError
 import com.palash.mtbmle.ui.theme.PalashTextSecondary
 import com.palash.mtbmle.ui.components.CosmicBackground
 import com.palash.mtbmle.ui.components.CosmicPanel
-import com.palash.mtbmle.ui.theme.CosmicIndigo
-import com.palash.mtbmle.ui.theme.CosmicCyan
-import com.palash.mtbmle.ui.theme.CosmicMint
+import com.palash.mtbmle.ui.theme.CosmicPink
+import com.palash.mtbmle.ui.theme.CosmicMagenta
+import com.palash.mtbmle.ui.theme.CosmicViolet
 import com.palash.mtbmle.ui.theme.CosmicText
 import com.palash.mtbmle.viewmodel.TranslateViewModel
 
@@ -47,7 +47,7 @@ fun TranslateScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    CosmicBackground(CosmicMint, secondaryAccent = CosmicCyan) {
+    CosmicBackground(accentColor = CosmicPink, secondaryAccent = CosmicMagenta, tertiaryAccent = CosmicViolet) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -70,14 +70,14 @@ fun TranslateScreen(
             Text(uiState.errorMessage!!, color = PalashError, style = MaterialTheme.typography.bodyMedium)
         }
 
-        PalashPrimaryButton(text = "Translate", accentColor = CosmicMint, onClick = viewModel::onTranslateClicked)
+        PalashPrimaryButton(text = "Translate", accentColor = CosmicPink, onClick = viewModel::onTranslateClicked)
 
         if (uiState.isLoading) {
-            PalashLoadingState(label = "Translating…", accentColor = CosmicMint)
+            PalashLoadingState(label = "Translating…", accentColor = CosmicPink)
         }
 
         uiState.result?.let { result ->
-            CosmicPanel(accentColor = CosmicIndigo) {
+            CosmicPanel(accentColor = CosmicMagenta) {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text("SOURCE · Hindi", style = MaterialTheme.typography.labelLarge, color = PalashTextSecondary)
                     Text(result.hindiText, style = MaterialTheme.typography.bodyLarge)

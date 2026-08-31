@@ -21,15 +21,17 @@ import com.palash.mtbmle.ui.components.OfflineStatusBadge
 import com.palash.mtbmle.ui.components.PalashActionCard
 import com.palash.mtbmle.ui.theme.PalashTextSecondary
 import com.palash.mtbmle.ui.components.CosmicBackground
+import com.palash.mtbmle.ui.theme.CosmicBlue
+import com.palash.mtbmle.ui.theme.CosmicViolet
 import com.palash.mtbmle.ui.theme.CosmicCyan
-import com.palash.mtbmle.ui.theme.CosmicPink
 import com.palash.mtbmle.ui.theme.CosmicText
 import com.palash.mtbmle.ui.theme.CosmicTextMuted
 
 
 /**
- * Teacher dashboard — the app's entry screen. Deliberately uncrowded (roadmap Section 6):
- * app identity, current language pair, three large action cards, and an offline indicator.
+ * Teacher dashboard — the app's entry screen, and the "home region" of the PALASH galaxy
+ * (blue + violet + cyan nebula). Deliberately uncrowded (roadmap Section 6): app identity,
+ * current language pair, three large action cards, and an offline indicator.
  */
 @Composable
 fun HomeScreen(
@@ -37,12 +39,12 @@ fun HomeScreen(
     onNavigateToVoice: () -> Unit,
     onNavigateToWorksheet: () -> Unit
 ) {
-    CosmicBackground(CosmicPink, secondaryAccent = CosmicCyan) {
+    CosmicBackground(accentColor = CosmicBlue, secondaryAccent = CosmicViolet, tertiaryAccent = CosmicCyan) {
     Column(
         modifier = Modifier.fillMaxSize().padding(PaddingValues(20.dp)),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Text("Hey, Explorer!", color = CosmicText, style = MaterialTheme.typography.headlineLarge)
+        Text("Hey, Explorer! 🚀", color = CosmicText, style = MaterialTheme.typography.headlineLarge)
         Text(
             "Your learning galaxy is ready",
             style = MaterialTheme.typography.titleMedium,
@@ -66,21 +68,21 @@ fun HomeScreen(
             subtitle = "Turn a Hindi classroom sentence into Santhali",
             icon = Icons.Filled.Translate,
             onClick = onNavigateToTranslate,
-            accentColor = CosmicPink
+            accentColor = CosmicViolet
         )
         PalashActionCard(
             title = "Voice Conversation",
             subtitle = "Speak Hindi, hear it translated into Santhali",
             icon = Icons.Filled.Mic,
             onClick = onNavigateToVoice,
-            accentColor = CosmicPink
+            accentColor = CosmicCyan
         )
         PalashActionCard(
             title = "Worksheets",
             subtitle = "Bilingual worksheets for your class",
             icon = Icons.Filled.MenuBook,
             onClick = onNavigateToWorksheet,
-            accentColor = CosmicPink
+            accentColor = CosmicBlue
         )
 
         Spacer(Modifier.height(8.dp))
@@ -92,4 +94,3 @@ fun HomeScreen(
     }
     }
 }
-

@@ -1,26 +1,14 @@
 package com.palash.mtbmle.ui.screens.voice
 
-import androidx.compose.foundation.background
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Mic
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -29,8 +17,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.palash.mtbmle.data.model.VoiceProcessingStatus
@@ -38,19 +24,19 @@ import com.palash.mtbmle.data.repository.MockSpeechRecognitionEngine
 import com.palash.mtbmle.data.repository.MockSpeechSynthesisEngine
 import com.palash.mtbmle.data.repository.MockTranslationEngine
 import com.palash.mtbmle.data.repository.VoiceTranslationEngine
-import com.palash.mtbmle.ui.theme.PalashAmberAccent
-import com.palash.mtbmle.ui.theme.PalashGreenPrimary
 import com.palash.mtbmle.ui.theme.PalashTextSecondary
 import com.palash.mtbmle.ui.components.CosmicBackground
+import com.palash.mtbmle.ui.components.CosmicMicButton
 import com.palash.mtbmle.ui.components.CosmicPanel
-import com.palash.mtbmle.ui.theme.CosmicPink
-import com.palash.mtbmle.ui.theme.CosmicGold
+import com.palash.mtbmle.ui.theme.CosmicMint
+import com.palash.mtbmle.ui.theme.CosmicTeal
+import com.palash.mtbmle.ui.theme.CosmicCyan
 import com.palash.mtbmle.ui.theme.CosmicText
 import com.palash.mtbmle.viewmodel.ConversationTurn
 import com.palash.mtbmle.viewmodel.VoiceViewModel
 
 /**
- * Voice Conversation screen (roadmap Sections 10-13).
+ * Voice Conversation screen (roadmap Sections 10-13) — green/teal/cyan region of the galaxy.
  *
  * The mic button is the single interaction point. All ASR -> MT -> TTS complexity is
  * hidden behind VoiceViewModel + VoiceTranslationEngine — this file only ever renders
@@ -70,7 +56,7 @@ fun VoiceScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    CosmicBackground(Color(0xFFFF5A5F), secondaryAccent = CosmicGold) {
+    CosmicBackground(accentColor = CosmicMint, secondaryAccent = CosmicTeal, tertiaryAccent = CosmicCyan) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -83,29 +69,13 @@ fun VoiceScreen(
 
         Box(contentAlignment = Alignment.Center) {
             val isRecording = uiState.status == VoiceProcessingStatus.RECORDING
-            val pulse by rememberInfiniteTransition(label = "recording pulse").animateFloat(
-                initialValue = 1f,
-                targetValue = 1.06f,
-                animationSpec = infiniteRepeatable(tween(700), RepeatMode.Reverse),
-                label = "recording scale"
+            CosmicMicButton(
+                icon = Icons.Filled.Mic,
+                isListening = isRecording,
+                accentColor = CosmicTeal,
+                listeningColor = CosmicMint,
+                onClick = viewModel::onMicTapped
             )
-            IconButton(
-                onClick = viewModel::onMicTapped,
-                modifier = Modifier
-                    .size(120.dp)
-                    .then(if (isRecording) Modifier.scale(pulse) else Modifier)
-                    .background(
-                        color = if (isRecording) Color(0xFFFF5A5F) else CosmicGold.copy(alpha = 0.78f),
-                        shape = CircleShape
-                    )
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.Mic,
-                    contentDescription = "Tap to speak",
-                    tint = Color.White,
-                    modifier = Modifier.size(52.dp)
-                )
-            }
         }
 
         Text(
@@ -114,11 +84,11 @@ fun VoiceScreen(
         )
 
         if (uiState.status == VoiceProcessingStatus.PROCESSING) {
-            CircularProgressIndicator(color = PalashGreenPrimary)
+            CircularProgressIndicator(color = CosmicTeal)
         }
 
         if (uiState.status == VoiceProcessingStatus.DONE) {
-            CosmicPanel(accentColor = CosmicGold) {
+            CosmicPanel(accentColor = CosmicMint) {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text("Recognized Hindi", style = MaterialTheme.typography.labelLarge, color = PalashTextSecondary)
                     Text(uiState.recognizedHindiText ?: "", style = MaterialTheme.typography.bodyLarge)
